@@ -1,0 +1,13 @@
+name = "ecovivo"
+uuid = "3ae50052-ad19-4e6d-841d-b95da8f55ab6"
+authors = ["Aaron Kelley", "Marco Tulio"]
+version = "0.1.0"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
