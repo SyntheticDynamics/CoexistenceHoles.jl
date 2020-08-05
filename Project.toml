@@ -1,4 +1,4 @@
-name = "ecovivo"
+name = "CoexistHypergraph"
 uuid = "3ae50052-ad19-4e6d-841d-b95da8f55ab6"
 authors = ["Aaron Kelley", "Marco Tulio"]
 version = "0.1.0"
@@ -10,6 +10,7 @@ Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
 IterTools = "c8e1da08-722c-5040-9ed9-7db0dc04731e"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 ProgressMeter = "92933f4c-e287-5a05-a399-4b506db050ca"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 Ripser = "a065acc3-80ed-5c45-b435-18a3916a1fde"
 SCS = "c946c3f1-0d1f-5ce8-9dea-7daa1f7e2d13"
 StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"

@@ -157,6 +157,54 @@ function save_hypergraph_dat(file, H)
     write(file, out)
 end
 
+function random_growthvector(N, μ, σ; seed=nothing)
+    if seed != nothing; seed!(seed); end
+    rand(LogNormal(μ, σ), N)
+end
+
+function randomize_growthvector(r; method="preserve_norm", seed=nothing)
+    if seed != nothing; seed!(seed); end # set seed
+
+    if  method == "preserve_norm"               # new random growth vector but same norm as r
+        v = rand(Normal(), length(r))
+        return norm(r,2).*v/norm(v,2)
+    elseif method == "preserve_sign_sample"     # unifmormly sampled from values of r, preserve signs
+        values = abs.(r)
+        return sign.(r').*sample(values, length(r))
+    elseif method == "preserve_sign_shuffle"    # randomly permuted from values of r, preserve signs
+        values = abs.(r)
+        return sign.(r').*sample(values, length(r))
+    elseif method == "shuffle"                  # randomly permuted from values of r
+        return shuffle(r)
+    elseif method == "sample"                   # unifmormly sampled from values of r
+        return sample(r, length(r))
+    end
+
+    @warn "Method Not Recognized: returning original growth vector"
+    return r
+end
+
+
+"""
+random_communitymatrix(N, σ, C)
+
+Generate a random community matrix (the "A" matrix in the generalized
+Lotka-Voltera equation).
+
+...
+# Arguments
+`σ::Number : `
+...
+"""
+function random_communitymatrix(N, σ, C)
+    W = rand(Normal(0, σ), N, N)
+    Z = rand(Bernoulli(C), N, N)
+    temp = W.*Z
+    temp[diagind(temp)] .= -1
+
+    return temp
+end
+
 """
 randomize community matrix
 """
@@ -192,45 +240,4 @@ function randomize_communitymatrix_signpreserving(Atemp)
     end
 
     return Ar
-end
-
-
-function randomize_growthvector_signpreserving(r)
-    values = abs.(r)
-    return sign.(r').*sample(values, length(r))
-end
-
-
-function randomize_growthvector(r)
-    return sample(values, length(r))
-end
-
-
-function random_growthvector(r)
-    v = rand(Normal(), length(r))
-    return norm(r,2).*v/norm(v,2)
-end
-
-"""
-random_communitymatrix(N, σ, C)
-
-Generate a random community matrix (the "A" matrix in the generalized
-Lotka-Voltera equation).
-
-...
-# Arguments
-`σ::Number : `
-...
-"""
-function random_communitymatrix(N, σ, C)
-    W = rand(Normal(0, σ), N, N)
-    Z = rand(Bernoulli(C), N, N)
-    temp = W.*Z
-    temp[diagind(temp)] .= -1
-
-    return temp
-end
-
-function random_r_vector(N, μ, σ)
-    rand(LogNormal(μ, σ), N)
 end

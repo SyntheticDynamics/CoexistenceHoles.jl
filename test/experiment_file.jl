@@ -14,10 +14,10 @@ max_dim  = 4
 A = random_communitymatrix(N, σA, C)
 r = random_r_vector(N, μ, σr)
 
-H = coexistence_hypergraphGLV(A, r; method = "permanence", regularization = reg)
-H = coexistence_hypergraphGLV(A, r; method = "localstability", regularization = reg)
+H = assembly_hypergraph_GLV(A, r; method = "permanence", regularization = reg)
+H = assembly_hypergraph_GLV(A, r; method = "localstability", regularization = reg)
 
 
-R = relaxed_missing_edges(H)
+R = disassembly_hypergraph(H)
 
 betti_H = betti_hypergraph_ripscomplex(H; max_dim = max_dim)
