@@ -170,10 +170,10 @@ function randomize_growthvector(r; method="preserve_norm", seed=nothing)
         return norm(r,2).*v/norm(v,2)
     elseif method == "preserve_sign_sample"     # unifmormly sampled from values of r, preserve signs
         values = abs.(r)
-        return sign.(r').*sample(values, length(r))
+        return sign.(r).*sample(values, length(r))
     elseif method == "preserve_sign_shuffle"    # randomly permuted from values of r, preserve signs
         values = abs.(r)
-        return sign.(r').*sample(values, length(r))
+        return sign.(r).*shuffle(values)
     elseif method == "shuffle"                  # randomly permuted from values of r
         return shuffle(r)
     elseif method == "sample"                   # unifmormly sampled from values of r
@@ -191,10 +191,8 @@ random_communitymatrix(N, σ, C)
 Generate a random community matrix (the "A" matrix in the generalized
 Lotka-Voltera equation).
 
-...
 # Arguments
 `σ::Number : `
-...
 """
 function random_communitymatrix(N, σ, C)
     W = rand(Normal(0, σ), N, N)
