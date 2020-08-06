@@ -1,5 +1,5 @@
 
-@doc"""
+"""
 is_GLVlocallystable(A, r)
 
 Computes if the pair (A,r) has a feasible interior equilibrium that is stable.
