@@ -232,7 +232,8 @@ entries that are not "populated" are set to 0)
 
 See also: [`randomize_communitymatrix`](@ref)
 """
-function random_communitymatrix(N, σ, p)
+function random_communitymatrix(N, σ, p; seed=nothing)
+    if seed != nothing; seed!(seed); end # set seed
     W = rand(Normal(0, σ), N, N)
     Z = rand(Bernoulli(C), N, N)
     temp = W.*Z
@@ -255,7 +256,8 @@ randomize_growthvector(r; <keyword arguments>)
 See also: [`random_growthvector`](@ref)
 
 """
-function randomize_communitymatrix(A; method="shuffle")
+function randomize_communitymatrix(A; method="shuffle", seed=nothing)
+    if seed != nothing; seed!(seed); end # set seed
     if method == "shuffle"
         Atemp = deepcopy(A)
         # list tuples (i,j) excepting  if i == j
