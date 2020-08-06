@@ -9,9 +9,9 @@ Computes if the pair (A,r) has a feasible interior equilibrium that is stable.
 - `r::Array{Real, 1}`: growth vector
 
 # Outputs
-- `stable::Bool`: true = stable, false = not stable
+- `stability::Bool`: true = stable, false = not stable
 """
-function is_GLVlocallystable(A::Array{Real,2}, r::Array{Real,1})::Bool
+function is_GLVlocallystable(A::Array{<:Real,2}, r::Array{<:Real,1})::Bool
     N = size(A, 1)
 
     # compute interior equilibrium for the local community
