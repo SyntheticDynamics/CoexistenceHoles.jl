@@ -41,14 +41,14 @@ is_permanente(A,r;) -> Boolean
 # Arguments
 - `A::Array{<:Real,2}`: community matrix
 - `r::Array{<:Real, 1}`: growth vector
-- `regularization::Real`:
-- `z_tolerance::Real`:
-- `iterations::Integer`:
+- `regularization::Real=0`:
+- `z_tolerance::Real=-1e-60`:
+- `iterations::Integer=1e4`:
 
 # Outputs
 - `permanence::Bool`: true = permanent, false = not permanent
 """
-function is_GLVpermanent(A::Array{<:Real, 2}, r::Array{<:Real, 1}; regularization::Real = 0, z_tolerance::Real = -1e-60, iterations::Int = 1e4)::Bool
+function is_GLVpermanent(A::Array{<:Real, 2}, r::Array{<:Real, 1}; regularization::Real = 0, z_tolerance::Real = -1e-60, iterations::Int = Int(1e4))::Bool
     N = size(A, 1)
 
     # Regularize A by adding a small negative diagonal term
