@@ -225,17 +225,17 @@ entries that are not "populated" are set to 0)
 
 
 # Arguments
-`N::Number`: dimension of returned square matrix (N x N)
-`σ::Number`: standard deviation of normal distribution used to generate each entry (μ = 0)
-`p::Number`: success rate of Bernoulli distribution used to populate the returned matrix
-
+- `N::Number`: dimension of returned square matrix (N x N)
+- `σ::Number`: standard deviation of normal distribution used to generate each entry (μ = 0)
+- `p::Number`: success rate of Bernoulli distribution used to populate the returned matrix
+- `seed::Number=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
 
 See also: [`randomize_communitymatrix`](@ref)
 """
 function random_communitymatrix(N, σ, p; seed=nothing)
     if seed != nothing; seed!(seed); end # set seed
     W = rand(Normal(0, σ), N, N)
-    Z = rand(Bernoulli(C), N, N)
+    Z = rand(Bernoulli(p), N, N)
     temp = W.*Z
     temp[diagind(temp)] .= -1
 
@@ -258,14 +258,15 @@ See also: [`random_growthvector`](@ref)
 """
 function randomize_communitymatrix(A; method="shuffle", seed=nothing)
     if seed != nothing; seed!(seed); end # set seed
+    Atemp = deepcopy(A)
     if method == "shuffle"
-        Atemp = deepcopy(A)
         # list tuples (i,j) excepting  if i == j
         tuples_orig = [(i,j) for i = 1:size(A, 1) for j = setdiff(1:size(A, 2), i)]
         # shuffel tuples
         tuples_shuff = shuffle(tuples_orig)
         # randomize matrix using shuffled tuples
         Atemp[CartesianIndex.(tuples_orig)] = Atemp[CartesianIndex.(tuples_shuff)]
+        return Atemp
     elseif method == "preserve_sign_shuffle"
         diagonal = abs.(diag(Atemp)) # stength diagonal entries
         Atemp2 = deepcopy(Atemp)
