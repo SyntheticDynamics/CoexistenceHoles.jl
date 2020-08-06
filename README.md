@@ -1,1 +1,1 @@
-# ecovivo
+# CoexistHypergraph
