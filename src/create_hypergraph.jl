@@ -181,7 +181,7 @@ randomize_growthvector(r; <keyword arguments>)
 
 # Arguments
 - `r::Array{Number,1}`: growth vector (this can be generated randomly by [`random_growthvector`](@ref))
-- `method::String="preserve_norm"`: will return a new growthvector following one of the following methods
+- `method::String="preserve_norm"`: will return a randomized growthvector using one of the following methods
     - `"preserve_norm"`: generated using a normal distribution for each entry, and then scaled to have the same norm as growth vector input (r)
     - `"shuffle"`: randomly permute growth vector input (r)
     - `"sample"`: randomly sample (with replacement) entries of growth vector input (r)
@@ -215,15 +215,24 @@ end
 
 
 """
-random_communitymatrix(N, σ, C)
+random_communitymatrix(N, σ, p)
 
 Generates a random community matrix (the "A" matrix in the generalized
-Lotka-Voltera equation).
+Lotka-Voltera equation [`https://en.wikipedia.org/wiki/Generalized_Lotka%E2%80%93Volterra_equation`](@ref)).
+The returned matrix will have -1's on the diagonals and be populated in the other
+entries according to a Bernoulli distribution with success rate parameter, p (the
+entries that are not "populated" are set to 0)
+
 
 # Arguments
-`σ::Number : `
+`N::Number`: dimension of returned square matrix (N x N)
+`σ::Number`: standard deviation of normal distribution used to generate each entry (μ = 0)
+`p::Number`: success rate of Bernoulli distribution used to populate the returned matrix
+
+
+See also: [`randomize_communitymatrix`](@ref)
 """
-function random_communitymatrix(N, σ, C)
+function random_communitymatrix(N, σ, p)
     W = rand(Normal(0, σ), N, N)
     Z = rand(Bernoulli(C), N, N)
     temp = W.*Z
@@ -233,38 +242,45 @@ function random_communitymatrix(N, σ, C)
 end
 
 """
-randomize community matrix
+randomize_growthvector(r; <keyword arguments>)
+
+
+# Arguments
+- `r::Array{Number,1}`: growth vector (this can be generated randomly by [`random_growthvector`](@ref))
+- `method::String="shuffle"`: will return a randomized community matrix using one of the following methods
+    - `"shuffle"`: shuffles all of the entries except for the ones on the diagonals
+    - `"preserve_sign_shuffle"`: same as "shuffle" but the signs are not modified
+- `seed::Number=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
+
+See also: [`random_growthvector`](@ref)
+
 """
-function randomize_communitymatrix(A)
-    Atemp = deepcopy(A)
+function randomize_communitymatrix(A; method="shuffle")
+    if method == "shuffle"
+        Atemp = deepcopy(A)
+        # list tuples (i,j) excepting  if i == j
+        tuples_orig = [(i,j) for i = 1:size(A, 1) for j = setdiff(1:size(A, 2), i)]
+        # shuffel tuples
+        tuples_shuff = shuffle(tuples_orig)
+        # randomize matrix using shuffled tuples
+        Atemp[CartesianIndex.(tuples_orig)] = Atemp[CartesianIndex.(tuples_shuff)]
+    elseif method == "preserve_sign_shuffle"
+        diagonal = abs.(diag(Atemp)) # stength diagonal entries
+        Atemp2 = deepcopy(Atemp)
+        Atemp2[diagind(Atemp2)] .= 0
+        non_diag_non_zero = abs.(Atemp2[ Atemp2 .!= 0]) # strength of non-diagonal and non-zero entries
 
-    # list tuples (i,j) excepting  if i == j
-    tuples_orig = [(i,j) for i = 1:size(A, 1) for j = setdiff(1:size(A, 2), i)]
-    # shuffel tuples
-    tuples_shuff = shuffle(tuples_orig)
-
-    # randomize matrix using shuffled tuples
-    Atemp[CartesianIndex.(tuples_orig)] = Atemp[CartesianIndex.(tuples_shuff)]
-
-    return Atemp
-end
-
-function randomize_communitymatrix_signpreserving(Atemp)
-    diagonal = abs.(diag(Atemp)) # stength diagonal entries
-    Atemp2 = deepcopy(Atemp)
-    Atemp2[diagind(Atemp2)] .= 0
-    non_diag_non_zero = abs.(Atemp2[ Atemp2 .!= 0]) # strength of non-diagonal and non-zero entries
-
-
-
-    Ar = zeros(size(Atemp))
-    for i = 1: size(Atemp, 1), j = 1: size(Atemp, 2)
-        if i == j
-            Ar[i,j] = sample(diagonal)*sign(Atemp[i,j])
-        else
-            Ar[i,j] = sample(non_diag_non_zero)*sign(Atemp[i,j])
+        Ar = zeros(size(Atemp))
+        for i = 1: size(Atemp, 1), j = 1: size(Atemp, 2)
+            if i == j
+                Ar[i,j] = sample(diagonal)*sign(Atemp[i,j])
+            else
+                Ar[i,j] = sample(non_diag_non_zero)*sign(Atemp[i,j])
+            end
         end
-    end
 
-    return Ar
+        return Ar
+    end
+    @warn "Method Not Recognized: returning original growth community matrix"
+    return A
 end
