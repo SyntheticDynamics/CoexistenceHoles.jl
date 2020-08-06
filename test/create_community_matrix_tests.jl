@@ -18,19 +18,35 @@ end
     A_shuf1 = randomize_communitymatrix(A, method="shuffle", seed=1234);
     A_shuf2 = randomize_communitymatrix(A, method="shuffle", seed=1234);
     A_shuf3 = randomize_communitymatrix(A, method="shuffle", seed=1235);
-    
+
     @test A_shuf1 == A_shuf2
     @test A_shuf1 != A_shuf3
     @test isempty(filter(x -> !in(x, abs.(A_shuf1)), abs.(A))) && isempty(filter(x -> !in(x, abs.(A)), abs.(A_shuf1)))
 
+    A_samp1 = randomize_communitymatrix(A, method="sample", seed=1234);
+    A_samp2 = randomize_communitymatrix(A, method="sample", seed=1234);
+    A_samp3 = randomize_communitymatrix(A, method="sample", seed=125);
+
+    @test A_samp1 == A_samp2
+    @test A_samp1 != A_samp3
+    @test isempty(filter(x -> !in(x, abs.(A)), abs.(A_samp1)))
+
     A_pshuf1 = randomize_communitymatrix(A, method="preserve_sign_shuffle", seed=1234);
     A_pshuf2 = randomize_communitymatrix(A, method="preserve_sign_shuffle", seed=1234);
-    A_pshuf3 = randomize_communitymatrix(A, method="preserve_sign_shuffle", seed=1235);
+    A_pshuf3 = randomize_communitymatrix(A, method="preserve_sign_shuffle", seed=125);
 
     @test A_pshuf1 == A_pshuf2
     @test A_pshuf1 != A_pshuf3
     @test sign.(A) == sign.(A_pshuf1)
     @test isempty(filter(x -> !in(x, abs.(A_pshuf1)), abs.(A))) && isempty(filter(x -> !in(x, abs.(A)), abs.(A_pshuf1)))
+
+    A_psamp1 = randomize_communitymatrix(A, method="preserve_sign_sample", seed=1234);
+    A_psamp2 = randomize_communitymatrix(A, method="preserve_sign_sample", seed=1234);
+    A_psamp3 = randomize_communitymatrix(A, method="preserve_sign_sample", seed=125);
+
+    @test A_samp1 == A_samp2
+    @test A_samp1 != A_samp3
+    @test isempty(filter(x -> !in(x, abs.(A)), abs.(A_psamp1)))
 
 
 
