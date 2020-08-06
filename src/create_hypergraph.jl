@@ -157,11 +157,40 @@ function save_hypergraph_dat(file, H)
     write(file, out)
 end
 
+"""
+random_growthvector(N, μ, σ; seed=nothing)
+
+Generates a random growth vector (the "r" vector in the generalized
+Lotka-Voltera equation [`https://en.wikipedia.org/wiki/Generalized_Lotka%E2%80%93Volterra_equation`](@ref))
+
+# Arguments
+- `N::Number`: length of returned growth vector
+- `μ::Number`: mean of LogNormal distribution used to generate each value
+- `σ::Number`: standard deviation of LogNormal distribution used to generate each value
+- `seed::Number=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
+
+See also: [`randomize_growthvector`](@ref)
+"""
 function random_growthvector(N, μ, σ; seed=nothing)
     if seed != nothing; seed!(seed); end
     rand(LogNormal(μ, σ), N)
 end
 
+"""
+randomize_growthvector(r; <keyword arguments>)
+
+# Arguments
+- `r::Array{Number,1}`: growth vector (this can be generated randomly by [`random_growthvector`](@ref))
+- `method::String="preserve_norm"`: will return a new growthvector following one of the following methods
+    - `"preserve_norm"`: generated using a normal distribution for each entry, and then scaled to have the same norm as growth vector input (r)
+    - `"shuffle"`: randomly permute growth vector input (r)
+    - `"sample"`: randomly sample (with replacement) entries of growth vector input (r)
+    - `"preserve_sign_shuffle"`: same as "shuffle" but the signs are not modified
+    - `"preserve_sign_sample"`: same as "sample" but the signs are not modified
+- `seed::Number=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
+
+See also: [`random_growthvector`](@ref)
+"""
 function randomize_growthvector(r; method="preserve_norm", seed=nothing)
     if seed != nothing; seed!(seed); end # set seed
 
@@ -188,7 +217,7 @@ end
 """
 random_communitymatrix(N, σ, C)
 
-Generate a random community matrix (the "A" matrix in the generalized
+Generates a random community matrix (the "A" matrix in the generalized
 Lotka-Voltera equation).
 
 # Arguments
