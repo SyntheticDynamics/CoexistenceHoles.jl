@@ -308,18 +308,20 @@ function randomize_communitymatrix(A::Array{<:Real,2}; method::String="shuffle",
         Atemp[CartesianIndex.(tuples_orig)] = Atemp[CartesianIndex.(tuples_shuff)]
         return Atemp
     elseif method == "preserve_sign_shuffle"
-        diagonal = abs.(diag(Atemp)) # stength diagonal entries
+        diagonal = shuffle(abs.(diag(Atemp))) # shuffle diags
         Atemp2 = deepcopy(Atemp)
         Atemp2[diagind(Atemp2)] .= 0
-        non_diag_non_zero = abs.(Atemp2[ Atemp2 .!= 0]) # strength of non-diagonal and non-zero entries
-
+        non_diag_non_zero = shuffle(abs.(Atemp2[ Atemp2 .!= 0])) # strength of non-diagonal and non-zero entries
+        d_count = 1;
+        n_count = 1;
         Ar = zeros(size(Atemp))
-        shuffle(diagonal)
         for i = 1: size(Atemp, 1), j = 1: size(Atemp, 2)
             if i == j
-                Ar[i,j] = sample(diagonal)*sign(Atemp[i,j])
+                Ar[i,j] = diagonal[d_count]*sign(Atemp[i,j])
+                d_count+=1;
             else
-                Ar[i,j] = sample(non_diag_non_zero)*sign(Atemp[i,j])
+                Ar[i,j] = non_diag_non_zero[n_count]*sign(Atemp[i,j])
+                n_count+=1*(Atemp[i,j]!=0)
             end
         end
 
