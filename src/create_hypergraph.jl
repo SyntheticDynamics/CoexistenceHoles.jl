@@ -39,13 +39,16 @@ Computes permanence of the pair (A,r) using Jansen's criterion of mutual invasib
 is_permanente(A,r;) -> Boolean
 
 # Arguments
-- `A::Array{Real,2}`: community matrix
-- `r::Array{Numer, 1}`: growth vector
+- `A::Array{<:Real,2}`: community matrix
+- `r::Array{<:Real, 1}`: growth vector
 - `regularization::Real`:
 - `z_tolerance::Real`:
 - `iterations::Integer`:
+
+# Outputs
+- `permanence::Bool`: true = permanent, false = not permanent
 """
-function is_GLVpermanent(A::Array{Real, 2}, r::Array{Real, 1}; regularization::Real = 0, z_tolerance::Real = -1e-60, iterations::Int = 1e4)::Bool
+function is_GLVpermanent(A::Array{<:Real, 2}, r::Array{<:Real, 1}; regularization::Real = 0, z_tolerance::Real = -1e-60, iterations::Int = 1e4)::Bool
     N = size(A, 1)
 
     # Regularize A by adding a small negative diagonal term
@@ -131,10 +134,10 @@ function is_GLVpermanent(A::Array{Real, 2}, r::Array{Real, 1}; regularization::R
 end
 
 """
-Computes the coexistence hypergraph for (A,r).
+Computes the assembly hypergraph for (A,r).
 Methods: "permanence", "localstability"
 """
-function assembly_hypergraph_GLV(A, r; method = "permanence", regularization = 0)
+function assembly_hypergraph_GLV(A::Array{<:Real,2}, r::Array{<:Real,1}; method::String = "permanence", regularization::Real = 0)
     N = size(A, 1)
 
     hyperdges = Array{Int64, 1}[]
@@ -185,11 +188,13 @@ Lotka-Voltera equation [`https://en.wikipedia.org/wiki/Generalized_Lotka%E2%80%9
 - `N::Real`: length of returned growth vector
 - `μ::Real`: mean of LogNormal distribution used to generate each value
 - `σ::Real`: standard deviation of LogNormal distribution used to generate each value
-- `seed::Real=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
+- `seed::Union{Nothing, <:Int}=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
 
+# Output
+- `growth_vector::Array{<:Real,1}`
 See also: [`randomize_growthvector`](@ref)
 """
-function random_growthvector(N, μ, σ; seed=nothing)
+function random_growthvector(N, μ, σ; seed=nothing)::Array{<:Real,1}
     if seed != nothing; seed!(seed); end
     rand(LogNormal(μ, σ), N)
 end
@@ -198,18 +203,21 @@ end
 randomize_growthvector(r; <keyword arguments>)
 
 # Arguments
-- `r::Array{Real,1}`: growth vector (this can be generated randomly by [`random_growthvector`](@ref))
+- `r::Array{<:Real,1}`: growth vector (this can be generated randomly by [`random_growthvector`](@ref))
 - `method::String="preserve_norm"`: will return a randomized growthvector using one of the following methods
     - `"preserve_norm"`: generated using a normal distribution for each entry, and then scaled to have the same norm as growth vector input (r)
     - `"shuffle"`: randomly permute growth vector input (r)
     - `"sample"`: randomly sample (with replacement) entries of growth vector input (r)
     - `"preserve_sign_shuffle"`: same as "shuffle" but the signs are not modified
     - `"preserve_sign_sample"`: same as "sample" but the signs are not modified
-- `seed::Real=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
+- `seed::Union{Nothing, <:Int}=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
+
+# Output
+- `growth_vector::Array{<:Real,1}`
 
 See also: [`random_growthvector`](@ref)
 """
-function randomize_growthvector(r; method="preserve_norm", seed=nothing)
+function randomize_growthvector(r::Array{<:Real,1}; method::String="preserve_norm", seed::Union{Nothing, <:Int}=nothing)::Array{<:Real,1}
     if seed != nothing; seed!(seed); end # set seed
 
     if  method == "preserve_norm"               # new random growth vector but same norm as r
@@ -246,11 +254,14 @@ entries that are not "populated" are set to 0)
 - `N::Real`: dimension of returned square matrix (N x N)
 - `σ::Real`: standard deviation of normal distribution used to generate each entry (μ = 0)
 - `p::Real`: success rate of Bernoulli distribution used to populate the returned matrix
-- `seed::Real=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
+- `seed::Union{Nothing, <:Int}=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
+
+# Output
+- `community_matrix::Array{<:Real,2}`
 
 See also: [`randomize_communitymatrix`](@ref)
 """
-function random_communitymatrix(N, σ, p; seed=nothing)
+function random_communitymatrix(N::Real, σ::Real, p::Real; seed::Union{Nothing, <:Int}=nothing)::Array{<:Real,2}
     if seed != nothing; seed!(seed); end # set seed
     W = rand(Normal(0, σ), N, N)
     Z = rand(Bernoulli(p), N, N)
@@ -265,16 +276,19 @@ randomize_communitymatrix(A; <keyword arguments>)
 
 
 # Arguments
-- `r::Array{Real,2}`: growth vector (this can be generated randomly by [`random_growthvector`](@ref))
+- `r::Array{<:Real,2}`: growth vector (this can be generated randomly by [`random_growthvector`](@ref))
 - `method::String="shuffle"`: will return a randomized community matrix using one of the following methods
     - `"shuffle"`: shuffles all of the entries except for the ones on the diagonals
     - `"preserve_sign_shuffle"`: same as "shuffle" but the signs are not modified
-- `seed::Real=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
+- `seed::Union{Nothing, <:Int}=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
+
+# Output
+- `community_matrix::Array{<:Real,2}`
 
 See also: [`random_growthvector`](@ref)
 
 """
-function randomize_communitymatrix(A; method="shuffle", seed=nothing)
+function randomize_communitymatrix(A::Array{<:Real,2}; method::String="shuffle", seed::Union{Nothing, <:Int}=nothing)::Array{<:Real,2}
     if seed != nothing; seed!(seed); end # set seed
     Atemp = deepcopy(A)
     if method == "shuffle"
