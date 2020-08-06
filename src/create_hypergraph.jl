@@ -285,7 +285,7 @@ randomize_communitymatrix(A; <keyword arguments>)
 # Output
 - `community_matrix::Array{<:Real,2}`
 
-See also: [`random_growthvector`](@ref)
+See also: [`random_communitymatrix`](@ref)
 
 """
 function randomize_communitymatrix(A::Array{<:Real,2}; method::String="shuffle", seed::Union{Nothing, <:Int}=nothing)::Array{<:Real,2}
@@ -299,7 +299,32 @@ function randomize_communitymatrix(A::Array{<:Real,2}; method::String="shuffle",
         # randomize matrix using shuffled tuples
         Atemp[CartesianIndex.(tuples_orig)] = Atemp[CartesianIndex.(tuples_shuff)]
         return Atemp
+    elseif method == "sample"
+        # list tuples (i,j) excepting  if i == j
+        tuples_orig = [(i,j) for i = 1:size(A, 1) for j = setdiff(1:size(A, 2), i)]
+        # shuffel tuples
+        tuples_shuff = sample(tuples_orig, length(tuples_orig))
+        # randomize matrix using shuffled tuples
+        Atemp[CartesianIndex.(tuples_orig)] = Atemp[CartesianIndex.(tuples_shuff)]
+        return Atemp
     elseif method == "preserve_sign_shuffle"
+        diagonal = abs.(diag(Atemp)) # stength diagonal entries
+        Atemp2 = deepcopy(Atemp)
+        Atemp2[diagind(Atemp2)] .= 0
+        non_diag_non_zero = abs.(Atemp2[ Atemp2 .!= 0]) # strength of non-diagonal and non-zero entries
+
+        Ar = zeros(size(Atemp))
+        shuffle(diagonal)
+        for i = 1: size(Atemp, 1), j = 1: size(Atemp, 2)
+            if i == j
+                Ar[i,j] = sample(diagonal)*sign(Atemp[i,j])
+            else
+                Ar[i,j] = sample(non_diag_non_zero)*sign(Atemp[i,j])
+            end
+        end
+
+        return Ar
+    elseif method == "preserve_sign_sample"
         diagonal = abs.(diag(Atemp)) # stength diagonal entries
         Atemp2 = deepcopy(Atemp)
         Atemp2[diagind(Atemp2)] .= 0
