@@ -1,1 +1,4 @@
 
+```@docs
+is_GLVlocallystable
+```
