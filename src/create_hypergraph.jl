@@ -1,8 +1,17 @@
 
 """
+is_GLVlocallystable(A, r)
+
 Computes if the pair (A,r) has a feasible interior equilibrium that is stable.
+
+# Arguments
+- `A::Array{Real,2}`: community matrix
+- `r::Array{Real, 1}`: growth vector
+
+# Outputs
+- `stable::Bool`: true = stable, false = not stable
 """
-function is_GLVlocallystable(A, r)
+function is_GLVlocallystable(A::Array{Real,2}, r::Array{Real,1})::Bool
     N = size(A, 1)
 
     # compute interior equilibrium for the local community
@@ -24,10 +33,19 @@ function is_GLVlocallystable(A, r)
 end
 
 """
+is_GLVpermanent(A, r; <keyword arguments>)
+
 Computes permanence of the pair (A,r) using Jansen's criterion of mutual invasibility.
 is_permanente(A,r;) -> Boolean
+
+# Arguments
+- `A::Array{Real,2}`: community matrix
+- `r::Array{Numer, 1}`: growth vector
+- `regularization::Real`:
+- `z_tolerance::Real`:
+- `iterations::Integer`:
 """
-function is_GLVpermanent(A, r; regularization = 0, z_tolerance = -1e-60, iterations = 1e4)
+function is_GLVpermanent(A::Array{Real, 2}, r::Array{Real, 1}; regularization::Real = 0, z_tolerance::Real = -1e-60, iterations::Int = 1e4)::Bool
     N = size(A, 1)
 
     # Regularize A by adding a small negative diagonal term
@@ -164,10 +182,10 @@ Generates a random growth vector (the "r" vector in the generalized
 Lotka-Voltera equation [`https://en.wikipedia.org/wiki/Generalized_Lotka%E2%80%93Volterra_equation`](@ref))
 
 # Arguments
-- `N::Number`: length of returned growth vector
-- `μ::Number`: mean of LogNormal distribution used to generate each value
-- `σ::Number`: standard deviation of LogNormal distribution used to generate each value
-- `seed::Number=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
+- `N::Real`: length of returned growth vector
+- `μ::Real`: mean of LogNormal distribution used to generate each value
+- `σ::Real`: standard deviation of LogNormal distribution used to generate each value
+- `seed::Real=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
 
 See also: [`randomize_growthvector`](@ref)
 """
@@ -180,14 +198,14 @@ end
 randomize_growthvector(r; <keyword arguments>)
 
 # Arguments
-- `r::Array{Number,1}`: growth vector (this can be generated randomly by [`random_growthvector`](@ref))
+- `r::Array{Real,1}`: growth vector (this can be generated randomly by [`random_growthvector`](@ref))
 - `method::String="preserve_norm"`: will return a randomized growthvector using one of the following methods
     - `"preserve_norm"`: generated using a normal distribution for each entry, and then scaled to have the same norm as growth vector input (r)
     - `"shuffle"`: randomly permute growth vector input (r)
     - `"sample"`: randomly sample (with replacement) entries of growth vector input (r)
     - `"preserve_sign_shuffle"`: same as "shuffle" but the signs are not modified
     - `"preserve_sign_sample"`: same as "sample" but the signs are not modified
-- `seed::Number=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
+- `seed::Real=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
 
 See also: [`random_growthvector`](@ref)
 """
@@ -225,10 +243,10 @@ entries that are not "populated" are set to 0)
 
 
 # Arguments
-- `N::Number`: dimension of returned square matrix (N x N)
-- `σ::Number`: standard deviation of normal distribution used to generate each entry (μ = 0)
-- `p::Number`: success rate of Bernoulli distribution used to populate the returned matrix
-- `seed::Number=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
+- `N::Real`: dimension of returned square matrix (N x N)
+- `σ::Real`: standard deviation of normal distribution used to generate each entry (μ = 0)
+- `p::Real`: success rate of Bernoulli distribution used to populate the returned matrix
+- `seed::Real=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
 
 See also: [`randomize_communitymatrix`](@ref)
 """
@@ -243,15 +261,15 @@ function random_communitymatrix(N, σ, p; seed=nothing)
 end
 
 """
-randomize_growthvector(r; <keyword arguments>)
+randomize_communitymatrix(A; <keyword arguments>)
 
 
 # Arguments
-- `r::Array{Number,1}`: growth vector (this can be generated randomly by [`random_growthvector`](@ref))
+- `r::Array{Real,2}`: growth vector (this can be generated randomly by [`random_growthvector`](@ref))
 - `method::String="shuffle"`: will return a randomized community matrix using one of the following methods
     - `"shuffle"`: shuffles all of the entries except for the ones on the diagonals
     - `"preserve_sign_shuffle"`: same as "shuffle" but the signs are not modified
-- `seed::Number=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
+- `seed::Real=nothing`: if specified, this seed will be used in the random number generator, allowing reproducibility
 
 See also: [`random_growthvector`](@ref)
 
