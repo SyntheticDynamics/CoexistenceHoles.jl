@@ -1,6 +1,7 @@
 
 module CoexistHypergraph
 
+import Documenter: @doc
 import LinearAlgebra: diagind, rank, pinv, eigvals, diagm, norm, diag
 import StatsBase: sample
 import Distributions: Uniform, Normal, Bernoulli, LogNormal
