@@ -17,6 +17,7 @@ include("create_hypergraph.jl")
 include("hypergraph_analysis.jl")
 
 export  random_communitymatrix,
+        randomize_communitymatrix,
         random_growthvector,
         randomize_growthvector,
         assembly_hypergraph_GLV,
