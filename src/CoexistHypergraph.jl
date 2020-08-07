@@ -24,6 +24,11 @@ export  random_communitymatrix,
         randomize_growthvector,
         assembly_hypergraph_GLV,
         disassembly_hypergraph,
-        betti_hypergraph_ripscomplex
+        betti_hypergraph_ripscomplex,
+        read_hypergraph,
+        hypergraph_subdivide,
+        minimal_simplicial_complex,
+
+
 
 end

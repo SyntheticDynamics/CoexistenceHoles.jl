@@ -1,4 +1,3 @@
-
 function hypergraph_density(H, number_of_species)
     temp = [count(h -> length(h) == i, H)/binomial(number_of_species, i) for i=1:number_of_species]
 
@@ -10,19 +9,26 @@ function hypergraph_dimension(H)
 end
 
 
+function get_descendents(G, h)
+    return [union(h,v) for v in neighbors(G, last(h))]
+end
 
+function missing_edges(hypergraph)
+    return setdiff(minimal_simplicial_complex(hypergraph), hypergraph)
+end
+
+"""
+read_hypergraph(filename)
+"""
 function read_hypergraph(filename)
     Hp = readlines(filename)
     temp = [ vcat([parse(Int, ss) for ss in split.(h, ",")]...) for h in Hp]
     return temp
 end
 
-
-function get_descendents(G, h)
-    return [union(h,v) for v in neighbors(G, last(h))]
-end
-
-
+"""
+hypergraph_subdivide(H; expansion = false)
+"""
 function hypergraph_subdivide(H; expansion = false)
 
     # Build graph of inclusion between hyperedges.
@@ -64,6 +70,8 @@ function hypergraph_subdivide(H; expansion = false)
 end
 
 """
+betti_hypergraph_ripscomplex(H; max_dim = 3)
+
 Computes Betti numbers of hypergraph.
 Based on computing the hypergraph subdivision without expansion, which returns the inclusion graph
 """
@@ -90,6 +98,8 @@ function betti_hypergraph_ripscomplex(H; max_dim = 3)
 end
 
 """
+minimal_simplicial_complex(hypergraph)
+
 Computes the minimal simplicial complex containig the hypergraph H
 """
 function minimal_simplicial_complex(hypergraph)
@@ -102,12 +112,9 @@ function minimal_simplicial_complex(hypergraph)
 end
 
 """
-Computes missing edges of hypergraph H
-"""
-function missing_edges(hypergraph)
-    return setdiff(minimal_simplicial_complex(hypergraph), hypergraph)
-end
+disassembly_hypergraph(hypergraph)
 
+"""
 function disassembly_hypergraph(hypergraph)
     M = missing_edges(hypergraph)
     temp = filter(h -> length(h) == 1, hypergraph) # hyperedges of dimension = 1 (i.e., vertices)

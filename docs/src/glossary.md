@@ -1,7 +1,7 @@
 # Function Glossary
 
 ```@index
-Pages=['glossary.md']
+Pages=["glossary.md"]
 ```
 
 ```@autodocs

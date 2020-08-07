@@ -23,8 +23,8 @@ Instructions for how to use it in R
 ```
 ## Quick Example
 
-## Citing CoexistHypergraph
-If you use CoexistHypergraph for academic research, please use the following paper for citation purposes.
+## Citing
+If you use CoexistHypergraph for academic research, please cite the following paper.
 
 Paper Citation
 
