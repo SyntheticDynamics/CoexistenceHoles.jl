@@ -134,10 +134,22 @@ function is_GLVpermanent(A::Array{<:Real, 2}, r::Array{<:Real, 1}; regularizatio
 end
 
 """
+
+assembly_hypergraph_GLV(A,r; <keyword arguments>)
 Computes the assembly hypergraph for (A,r).
-Methods: "permanence", "localstability"
+
+# Arguments
+- `A::Array{<:Real,2}`: community matrix
+- `r::Array{<:Real, 1}`: growth vector
+- `method::String="permanence"`: will return a randomized growthvector using one of the following methods
+    - `"permanence"`: uses the is_GLVpermantent(@ref) to determine interspecies coexistance
+    - `"localstability"`: uses the is_GLVlocallystable(@ref) to determine interspecies coexistance
+- `regularization::Real=0`:
+
+# Outputs
+- `hypergraph::Array{Array{Int64,1},1}`: array of hyper edges: species in edge => species coexist
 """
-function assembly_hypergraph_GLV(A::Array{<:Real,2}, r::Array{<:Real,1}; method::String = "permanence", regularization::Real = 0)
+function assembly_hypergraph_GLV(A::Array{<:Real,2}, r::Array{<:Real,1}; method::String = "permanence", regularization::Real = 0)::Array{Array{Int64,1},1}
     N = size(A, 1)
 
     hyperdges = Array{Int64, 1}[]
@@ -171,9 +183,17 @@ function assembly_hypergraph_GLV(A::Array{<:Real,2}, r::Array{<:Real,1}; method:
 end
 
 """
+save_hypergraph_dat(file, H)
+
 Saves the hypergraph H into file as a list of hyperedges
+
+# Arguments
+- `file::String`: full file name (including the path where you want to save it)
+- `H::Array{Array{Int64,1},1}`: hypergraph
+
+See also: [`assembly_hypergraph_GLV`](@ref)
 """
-function save_hypergraph_dat(file, H)
+function save_hypergraph_dat(file::String, H::Array{Array{Int64,1},1})::Nothing
     out = [filter(x -> !isspace(x), chop(repr(h), head = 1, tail =1))*"\n" for h in H] |> join
     write(file, out)
 end
