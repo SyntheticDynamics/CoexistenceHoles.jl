@@ -1,3 +1,4 @@
+
 function hypergraph_density(H, number_of_species)
     temp = [count(h -> length(h) == i, H)/binomial(number_of_species, i) for i=1:number_of_species]
 

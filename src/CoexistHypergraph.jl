@@ -29,6 +29,4 @@ export  random_communitymatrix,
         hypergraph_subdivide,
         minimal_simplicial_complex
 
-
-
 end
