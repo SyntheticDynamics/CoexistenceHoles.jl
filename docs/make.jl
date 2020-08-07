@@ -6,6 +6,11 @@ makedocs(
     sitename="CoexistHypergraph.jl",
     modules = [CoexistHypergraph],
     pages = Any[
-        "home" => "index.md"
+        "Home" => "index.md"
+        "User Guide" => [
+            "examples.md",
+            "tutorial.md",
+            "glossary.md"
+            ]
     ]
 )
