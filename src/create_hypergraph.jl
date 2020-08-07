@@ -202,7 +202,7 @@ end
 random_growthvector(N, μ, σ; seed=nothing)
 
 Generates a random growth vector (the "r" vector in the generalized
-Lotka-Voltera equation [`https://en.wikipedia.org/wiki/Generalized_Lotka%E2%80%93Volterra_equation`](@ref))
+[Lotka-Voltera](https://en.wikipedia.org/wiki/Generalized_Lotka%E2%80%93Volterra_equation)  equation)
 
 # Arguments
 - `N::Real`: length of returned growth vector
@@ -264,8 +264,7 @@ end
 random_communitymatrix(N, σ, p)
 
 Generates a random community matrix (the "A" matrix in the generalized
-Lotka-Voltera equation [`https://en.wikipedia.org/wiki/Generalized_Lotka%E2%80%93Volterra_equation`](@ref)).
-The returned matrix will have -1's on the diagonals and be populated in the other
+[Lotka-Voltera](https://en.wikipedia.org/wiki/Generalized_Lotka%E2%80%93Volterra_equation) equation).
 entries according to a Bernoulli distribution with success rate parameter, p (the
 entries that are not "populated" are set to 0)
 
