@@ -1,4 +1,5 @@
-![](./assets/simplicial_complex.png =200x)
+<img src="./assets/simplicial_complex.png" width=50/ class="center">
+
 # CoexistHypergraph.jl Documentation
 
 ## Installation
