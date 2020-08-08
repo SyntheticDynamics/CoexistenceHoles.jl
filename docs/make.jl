@@ -11,6 +11,7 @@ makedocs(
             "examples.md",
             "tutorial.md",
             "glossary.md"
+            "R_use.md"
             ]
     ]
 )
