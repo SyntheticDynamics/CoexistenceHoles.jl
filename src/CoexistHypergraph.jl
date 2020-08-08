@@ -3,7 +3,7 @@ module CoexistHypergraph
 
 import LinearAlgebra: diagind, rank, pinv, eigvals, diagm, norm, diag
 import StatsBase: sample
-import Distributions: Uniform, Normal, Bernoulli, LogNormal
+import Distributions: Uniform, Normal, Bernoulli, LogNormal, rand
 import ProgressMeter: @showprogress
 import Convex: Variable, minimize, solve!
 import SCS: Optimizer
