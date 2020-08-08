@@ -1,3 +1,4 @@
+![](./assets/simplicial_complex.png)
 # CoexistHypergraph.jl Documentation
 
 ## Installation
@@ -38,7 +39,7 @@ julia_install_package("https://github.com/akel123/CoexistHypergraph.jl.git#maste
 # add the library every time you open a new session of R and want to use CoexistHypergraph
 julia_library("CoexistHypergraph")
 ```
-
+#### Quick notes on how to use `CoexistHypergraph` with `JuliaCall`
 There are quite a few ways to use `CoexistHypergraph` in `R`. Here are 3 examples that achieve the same result
 ```R
 A = julia_eval("random_communitymatrix(8, 0.1, 0.1)")
