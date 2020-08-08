@@ -21,20 +21,52 @@ installed correctly by running the `julia` command in a terminal. If this comman
 is not found, you will need to add it to your path following the proper
 [instructions](https://julialang.org/downloads/platform/) for your operating system.
 
-Once `julia` is properly installed, you will need to install [`JuliaCall`](https://github.com/Non-Contradiction/JuliaCall) in `R`. This is done as with any other `R` package:
+In `R` use [`JuliaCall`](https://github.com/Non-Contradiction/JuliaCall) is used to interface between languages. For function summaries see [this](https://cran.r-project.org/web/packages/JuliaCall/JuliaCall.pdf) document.
+However studying these functions is not necessary since `CoexistHypergraph`'s
+shows the proper functions to use from `JuliaCall` in the tutorial and examples.
+
+The follwoing are steps to use `CoexistHypergraph` in R:
 ```R
 install.packages("JuliaCall")
-```
-And then you will need to do initial set up:
-```R
+
 library(JuliaCall)
 julia <- julia_setup()
-```
-If the above step fails, most likely `julia` was not added to your path correctly.
-Please see the [`JuliaCall`](https://github.com/Non-Contradiction/JuliaCall)
-documentation which has troubleshooting information.
 
-Now `JuliaCall` is installed: [more info](https://cran.r-project.org/web/packages/JuliaCall/JuliaCall.pdf)
+# only need to run this once
+julia_install_package("https://github.com/akel123/CoexistHypergraph.jl.git#master")
+
+# add the library every time you open a new session of R and want to use CoexistHypergraph
+julia_library("CoexistHypergraph")
+```
+
+There are quite a few ways to use `CoexistHypergraph` in `R`. Here are 3 examples that achieve the same result
+```R
+A = julia_eval("random_communitymatrix(8, 0.1, 0.1)")
+r = julia_eval("random_growthvector(8, 0.1, 0.1)")
+H  = julia_call("assembly_hypergraph_GLV", A, r)
+```
+```R
+# define you functions from julia in R
+random_growthvector = julia_function("random_growthvector", pkg_name="CoexistHypergraph")
+random_communitymatrix = julia_function("random_communitymatrix", pkg_name="CoexistHypergraph")
+assembly_hypergraph_GLV = julia_function("assembly_hypergraph_GLV", pkg_name="CoexistHypergraph")
+
+# use them directly
+A = random_communitymatrix(8, 0.1, 0.1)
+r = random_growthvector(8, 0.1, 0.1)
+H = assembly_hypergraph_GLV(A, r)
+```
+```
+# import the functions from the package and store them in opt
+opt <- julia_pkg_import("CoexistHypergraph", func_list = c("random_communitymatrix",
+                                                           "random_growthvector",
+                                                           "assembly_hypergraph_GLV"))
+
+# access the functions through opt variable
+A = opt$random_communitymatrix(8, 0.1, 0.1)
+r = opt$random_growthvector(8, 0.1, 0.1)
+H = opt$assembly_hypergraph_GLV(A,R)
+```
 ## Overview
 Description
 
