@@ -11,7 +11,7 @@ import SCS: Optimizer
 import IterTools: reverse
 import Ripser: ripser
 import Combinatorics: combinations
-import Random: seed!, rand, shuffle
+import Random: seed!, shuffle
 
 
 include("create_hypergraph.jl")
