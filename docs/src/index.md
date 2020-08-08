@@ -15,10 +15,26 @@ Or you can install it via the Pkg REPL like this:
 (v1.3) pkg> add https://github.com/akel123/CoexistHypergraph.jl.git#master
 ```
 ### R
-```
-Instructions for how to use it in R
-```
+If you already have [`R`](https://www.r-project.org/) installed then you'll need
+to download install [`julia`](https://julialang.org/). You can check if julia is
+installed correctly by running the `julia` command in a terminal. If this command
+is not found, you will need to add it to your path following the proper
+[instructions](https://julialang.org/downloads/platform/) for your operating system.
 
+Once `julia` is properly installed, you will need to install [`JuliaCall`](https://github.com/Non-Contradiction/JuliaCall) in `R`. This is done as with any other `R` package:
+```R
+install.packages("JuliaCall")
+```
+And then you will need to do initial set up:
+```R
+library(JuliaCall)
+julia <- julia_setup()
+```
+If the above step fails, most likely `julia` was not added to your path correctly.
+Please see the [`JuliaCall`](https://github.com/Non-Contradiction/JuliaCall)
+documentation which has troubleshooting information.
+
+Now `JuliaCall` is installed: [more info](https://cran.r-project.org/web/packages/JuliaCall/JuliaCall.pdf)
 ## Overview
 Description
 
