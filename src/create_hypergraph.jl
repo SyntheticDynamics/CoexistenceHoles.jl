@@ -214,7 +214,8 @@ Generates a random growth vector (the "r" vector in the generalized
 - `growth_vector::Array{<:Real,1}`
 See also: [`randomize_growthvector`](@ref)
 """
-function random_growthvector(N, μ, σ; seed=nothing)#::Array{<:Real,1}
+function random_growthvector(N::Number, μ::Number, σ::Number; seed::Union{String, Nothing}=nothing)::Array{<:Real,1}
+    N = Int(N);
     if seed != nothing; seed!(seed); end
     return Distributions.rand(LogNormal(μ, σ), N)
 
@@ -281,7 +282,8 @@ entries that are not "populated" are set to 0)
 
 See also: [`randomize_communitymatrix`](@ref)
 """
-function random_communitymatrix(N::Real, σ::Real, p::Real; seed::Union{Nothing, <:Int}=nothing)::Array{<:Real,2}
+function random_communitymatrix(N::Number, σ::Real, p::Real; seed::Union{Nothing, <:Int}=nothing)::Array{<:Real,2}
+    N = Int(N);
     if seed != nothing; seed!(seed); end # set seed
     W = Distributions.rand(Normal(0, σ), N, N)
     Z = Distributions.rand(Bernoulli(p), N, N)
