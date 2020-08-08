@@ -215,6 +215,7 @@ Generates a random growth vector (the "r" vector in the generalized
 See also: [`randomize_growthvector`](@ref)
 """
 function random_growthvector(N, μ, σ; seed=nothing)::Array{<:Real,1}
+    @show 'hi'
     if seed != nothing; seed!(seed); end
     Distributions.rand(LogNormal(μ, σ), N)
 end
