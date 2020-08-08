@@ -52,7 +52,7 @@ function is_GLVpermanent(A::Array{<:Real, 2}, r::Array{<:Real, 1}; regularizatio
     N = size(A, 1)
 
     # Regularize A by adding a small negative diagonal term
-    regularization > 0 ? Atemp = A .+ Diagonal(rand(Uniform(-1.0*regularization, 0), N)) : Atemp = copy(A)
+    regularization > 0 ? Atemp = A .+ Diagonal(Distributions.rand(Uniform(-1.0*regularization, 0), N)) : Atemp = copy(A)
 
     if N == 1 # just scalar equation
         coexistence = Atemp[1] < 0 && r[1] > 0 ?  true : false
@@ -216,7 +216,7 @@ See also: [`randomize_growthvector`](@ref)
 """
 function random_growthvector(N, μ, σ; seed=nothing)::Array{<:Real,1}
     if seed != nothing; seed!(seed); end
-    rand(LogNormal(μ, σ), N)
+    Distributions.rand(LogNormal(μ, σ), N)
 end
 
 """
@@ -241,7 +241,7 @@ function randomize_growthvector(r::Array{<:Real,1}; method::String="preserve_nor
     if seed != nothing; seed!(seed); end # set seed
 
     if  method == "preserve_norm"               # new random growth vector but same norm as r
-        v = rand(Normal(), length(r))
+        v = Distributions.rand(Normal(), length(r))
         return norm(r,2).*v/norm(v,2)
     elseif method == "preserve_sign_sample"     # unifmormly sampled from values of r, preserve signs
         values = abs.(r)
@@ -282,8 +282,8 @@ See also: [`randomize_communitymatrix`](@ref)
 """
 function random_communitymatrix(N::Real, σ::Real, p::Real; seed::Union{Nothing, <:Int}=nothing)::Array{<:Real,2}
     if seed != nothing; seed!(seed); end # set seed
-    W = rand(Normal(0, σ), N, N)
-    Z = rand(Bernoulli(p), N, N)
+    W = Distributions.rand(Normal(0, σ), N, N)
+    Z = Distributions.rand(Bernoulli(p), N, N)
     temp = W.*Z
     temp[diagind(temp)] .= -1
 
