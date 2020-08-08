@@ -214,10 +214,10 @@ Generates a random growth vector (the "r" vector in the generalized
 - `growth_vector::Array{<:Real,1}`
 See also: [`randomize_growthvector`](@ref)
 """
-function random_growthvector(N, μ, σ; seed=nothing)::Array{<:Real,1}
+function random_growthvector(N, μ, σ; seed=nothing)#::Array{<:Real,1}
     if seed != nothing; seed!(seed); end
     # return Distributions.rand(LogNormal(μ, σ), N)
-    return 1
+    return Distributions.rand
 end
 
 """
