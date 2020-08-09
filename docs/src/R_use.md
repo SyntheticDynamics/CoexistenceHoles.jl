@@ -1,11 +1,18 @@
-#CoexistHypergraph in R
-#### Quick notes on how to use `CoexistHypergraph` with `JuliaCall`
-There are quite a few ways to use `CoexistHypergraph` in `R`. Here are 3 examples that achieve the same result
+# CoexistHypergraph in R
+
+
+There are quite a few ways to use `CoexistHypergraph` in `R` using `JuliaCall`. Here are 3 examples that achieve the same result.
+
+#### 1) evals and calls
+This is the quick and dirty way of running julia code in R. We do not recommend it as a very effective way to write a project, but it exists.
 ```R
 A = julia_eval("random_communitymatrix(8, 0.1, 0.1)")
 r = julia_eval("random_growthvector(8, 0.1, 0.1)")
 H  = julia_call("assembly_hypergraph_GLV", A, r)
 ```
+
+#### 2) julia_function()
+This is a much cleaner way if you want to integrate a few functions from `CoexistHypergraph` into your R code.
 ```R
 # define you functions from julia in R
 random_growthvector = julia_function("random_growthvector", pkg_name="CoexistHypergraph")
@@ -17,7 +24,10 @@ A = random_communitymatrix(8, 0.1, 0.1)
 r = random_growthvector(8, 0.1, 0.1)
 H = assembly_hypergraph_GLV(A, r)
 ```
-```
+
+#### 3) julia_pkg_import()
+You also have the choice to import multiple functions at once. This can be usefull if you are using many functions from `CoexistHypergraph`
+```R
 # import the functions from the package and store them in opt
 opt <- julia_pkg_import("CoexistHypergraph", func_list = c("random_communitymatrix",
                                                            "random_growthvector",

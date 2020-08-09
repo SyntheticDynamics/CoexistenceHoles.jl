@@ -1,6 +1,7 @@
-<img src="./assets/simplicial_complex.png" width=50/ class="center">
-
 # CoexistHypergraph.jl Documentation
+
+## Quick Overview
+Description
 
 ## Installation
 
@@ -27,7 +28,8 @@ In `R` use [`JuliaCall`](https://github.com/Non-Contradiction/JuliaCall) is used
 However studying these functions is not necessary since `CoexistHypergraph`'s
 shows the proper functions to use from `JuliaCall` in the tutorial and examples.
 
-The follwoing are steps to use `CoexistHypergraph` in R:
+The follwoing are steps to install `CoexistHypergraph` in `R`. See the examples
+or tutorials for more specific instructions.
 ```R
 install.packages("JuliaCall")
 
@@ -41,15 +43,11 @@ julia_install_package("https://github.com/akel123/CoexistHypergraph.jl.git#maste
 julia_library("CoexistHypergraph")
 ```
 
-## Overview
-Description
 
-![](./assets/species_to_graph.png)
 
-![](./assets/graph_to_backbone.png)
 
 ## Quick Example
-
+#### Julia
 ```julia
 using CoexistHypergraph
 

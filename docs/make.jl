@@ -7,10 +7,11 @@ makedocs(
     modules = [CoexistHypergraph],
     pages = Any[
         "Home" => "index.md"
+        "Overview" => "overview.md"
         "User Guide" => [
             "examples.md",
             "tutorial.md",
-            "glossary.md"
+            "glossary.md",
             "R_use.md"
             ]
     ]
