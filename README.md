@@ -10,10 +10,15 @@
 ```julia
 using CoexistHypergraph
 
+
+
+
+
+
 N = 8 # number of species in our ecosystem
 
 # create a random community matrix
-σA = 0.1 # standard devation for entries
+σA = 0.1 # standard deviation for entries
 C = 0.1 # success rate of Bernoulli distribution used to populate matrix
 A = random_communitymatrix(N, σA, C)
 
@@ -22,13 +27,12 @@ A = random_communitymatrix(N, σA, C)
 σr = 0.2 # standard deviation of LogNormal distribution used to generate each value
 r = random_r_vector(N, μ, σr)
 
-
+# create assembly and disassembly hypergraph
 reg = 0
-max_dim  = 4
 H = assembly_hypergraph_GLV(A, r; method = "permanence", regularization = reg)
 R = disassembly_hypergraph(H)
 
-# maybe save these for later if you want
+# save these for later if you want
 save_hypergraph_dat("~/hypergraphs/assembly_hypergraph.dat", H)
 save_hypergraph_dat("~/hypergraphs/disassembly_hypergraph.dat", R)
 
@@ -39,17 +43,38 @@ betti_H = betti_hypergraph_ripscomplex(H; max_dim = max_dim)
  </td>
 <td>
 
-```json
-json
-{
-    "id": 10,
-    "username": "alanpartridge",
-    "email": "alan@alan.com",
-    "password_hash": "$2a$10$uhUIUmVWVnrBWx9rrDWhS.CPCWCZsyqqa8./whhfzBZydX7yvahHS",
-    "password_salt": "$2a$10$uhUIUmVWVnrBWx9rrDWhS.",
-    "created_at": "2015-02-14T20:45:26.433Z",
-    "updated_at": "2015-02-14T20:45:26.540Z"
-}
+```R
+julia_library("CoexistHypergraph")
+
+opt <- julia_pkg_import("CoexistHypergraph", func_list = c("random_communitymatrix",
+                                                           "random_growthvector",
+                                                           "assembly_hypergraph_GLV",
+                                                           "dissassembly_hypergraph",
+                                                           "save_hypergraph_dat"))
+N = 8 # number of species in our ecosystem
+
+# create a random community matrix
+sA = 0.1 # standard deviation for community matrix
+C = 0.1 # success rate of Bernoulli distribution used to populate matrix
+A = opt$random_communitymatrix(N, sA, C)
+
+# create a random growth vector
+mr = 0.1
+sr = 0.1
+r = opt$random_growthvector(N, mr, sr)
+
+# create assembly and disassembly hypergraph
+reg = 0
+H = opt$assembly_hypergraph_GLV(A,R; method="permanence", regularization=reg)
+M = opt$disassembly_hypergraph(H)
+
+# save these for later if you want
+save_hypergraph_dat("~/hypergraphs/assembly_hypergraph.dat", H)
+save_hypergraph_dat("~/hypergraphs/disassembly_hypergraph.dat", R)
+
+# get the betti numbers
+betti_H = betti_hypergraph_ripscomplex(H; max_dim = max_dim)
+
 ```
 
 </td>
