@@ -15,7 +15,7 @@ Or you can install it via the Pkg REPL like this:
 ```julia
 (v1.3) pkg> add https://github.com/akel123/CoexistHypergraph.jl.git#master
 ```
-### R
+ ### R
 If you already have [`R`](https://www.r-project.org/) installed then you'll need
 to download install [`julia`](https://julialang.org/). You can check if julia is
 installed correctly by running the `julia` command in a terminal. If this command
@@ -123,3 +123,13 @@ betti_H = betti_hypergraph_ripscomplex(H; max_dim = max_dim)
 </td>
 </tr>
 </table>
+
+
+## Citing
+If you use CoexistHypergraph for academic research, please cite the following paper.
+
+Paper Citation
+
+## Developers
+-  Marco Tulio
+- Aaron Kelley

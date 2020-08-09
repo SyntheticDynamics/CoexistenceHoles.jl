@@ -1,4 +1,4 @@
-# CoexistHypergraph in R
+# Using R language
 
 
 There are quite a few ways to use `CoexistHypergraph` in `R` using `JuliaCall`. Here are 3 examples that achieve the same result.

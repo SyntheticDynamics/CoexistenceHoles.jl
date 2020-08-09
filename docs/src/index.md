@@ -5,7 +5,7 @@ Description
 
 ## Installation
 
-### Julia
+#### Julia
 This package is not registered (yet).
 You can install it via the Julia REPL like this:
 ```julia
@@ -17,7 +17,7 @@ Or you can install it via the Pkg REPL like this:
 ```julia
 (v1.3) pkg> add https://github.com/akel123/CoexistHypergraph.jl.git#master
 ```
-### R
+#### R
 If you already have [`R`](https://www.r-project.org/) installed then you'll need
 to download install [`julia`](https://julialang.org/). You can check if julia is
 installed correctly by running the `julia` command in a terminal. If this command
@@ -70,6 +70,41 @@ H = assembly_hypergraph_GLV(A, r; method = "permanence", regularization = reg)
 R = disassembly_hypergraph(H)
 
 # maybe save these for later if you want
+save_hypergraph_dat("~/hypergraphs/assembly_hypergraph.dat", H)
+save_hypergraph_dat("~/hypergraphs/disassembly_hypergraph.dat", R)
+
+# get the betti numbers
+betti_H = betti_hypergraph_ripscomplex(H; max_dim = max_dim)
+```
+
+#### R
+
+```R
+julia_library("CoexistHypergraph")
+
+opt <- julia_pkg_import("CoexistHypergraph", func_list = c("random_communitymatrix",
+                                                           "random_growthvector",
+                                                           "assembly_hypergraph_GLV",
+                                                           "dissassembly_hypergraph",
+                                                           "save_hypergraph_dat"))
+N = 8 # number of species in our ecosystem
+
+# create a random community matrix
+sA = 0.1 # standard deviation for community matrix
+C = 0.1 # success rate of Bernoulli distribution used to populate matrix
+A = opt$random_communitymatrix(N, sA, C)
+
+# create a random growth vector
+mr = 0.1
+sr = 0.1
+r = opt$random_growthvector(N, mr, sr)
+
+# create assembly and disassembly hypergraph
+reg = 0
+H = opt$assembly_hypergraph_GLV(A,R; method="permanence", regularization=reg)
+M = opt$disassembly_hypergraph(H)
+
+# save these for later if you want
 save_hypergraph_dat("~/hypergraphs/assembly_hypergraph.dat", H)
 save_hypergraph_dat("~/hypergraphs/disassembly_hypergraph.dat", R)
 
