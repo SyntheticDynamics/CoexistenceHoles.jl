@@ -68,7 +68,7 @@ A = random_communitymatrix(N, σA, C)
 # create a random growth vector
 μ = 0.3 # mean of LogNormal distribution used to generate each value
 σr = 0.2 # standard deviation of LogNormal distribution used to generate each value
-r = random_r_vector(N, μ, σr)
+r = randomize_growthvector(N, μ, σr)
 
 # create assembly and disassembly hypergraph
 reg = 0

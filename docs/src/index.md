@@ -61,7 +61,7 @@ A = random_communitymatrix(N, σA, C)
 # create a random growth vector
 μ = 0.3 # mean of LogNormal distribution used to generate each value
 σr = 0.2 # standard deviation of LogNormal distribution used to generate each value
-r = randomize_growthvector(N, μ, σr)
+r = random_growthvector(N, μ, σr)
 
 
 reg = 0
