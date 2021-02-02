@@ -1,10 +1,10 @@
-using Documenter, CoexistHypergraph
+using Documenter, CoexistenceHoles
 
 push!(LOAD_PATH,"../src/")
 
 makedocs(
-    sitename="CoexistHypergraph.jl",
-    modules = [CoexistHypergraph],
+    sitename="CoexistenceHoles.jl",
+    modules = [CoexistenceHoles],
     pages = Any[
         "Home" => "index.md"
         "Overview" => "overview.md"
@@ -18,5 +18,5 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/akel123/CoexistHypergraph.jl.git"
+    repo = "github.com/mtangulo/CoexistenceHoles.jl.git"
 )
