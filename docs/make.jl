@@ -1,10 +1,11 @@
-using Documenter, CoexistenceHoles
+using Documenter
+using CoexistenceHoles
 
 push!(LOAD_PATH,"../src/")
 
 makedocs(
     sitename="CoexistenceHoles.jl",
-    # modules = [CoexistenceHoles],
+    modules = [CoexistenceHoles],
     pages = Any[
         "Home" => "index.md"
         "Overview" => "overview.md"
@@ -15,7 +16,6 @@ makedocs(
             "R_use.md"
             ]
     ],
-    doctest=false,
 )
 
 deploydocs(
