@@ -4,7 +4,7 @@ push!(LOAD_PATH,"../src/")
 
 makedocs(
     sitename="CoexistenceHoles.jl",
-    modules = [CoexistenceHoles],
+    # modules = [CoexistenceHoles],
     pages = Any[
         "Home" => "index.md"
         "Overview" => "overview.md"
@@ -14,7 +14,8 @@ makedocs(
             "glossary.md",
             "R_use.md"
             ]
-    ]
+    ],
+    doctest=fasle,
 )
 
 deploydocs(
