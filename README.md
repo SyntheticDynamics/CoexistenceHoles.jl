@@ -1,6 +1,6 @@
-# CoexistHypergraph
+# CoexistenceHoles
 
-CoexistHypergraph is a `Julia` and `R` package that originally was made for non-additive coexistence in multispecies systems, but has the potential for a variety of applications. In short, it provides tools for making and analysing they homology of hypergraphs. Check out the tutorials and examples, along with more documentation, [here](https://github.com)
+CoexistenceHoles is a `Julia` and `R` package that originally was made for non-additive coexistence in multispecies systems, but has the potential for a variety of applications. In short, it provides tools for making and analysing they homology of hypergraphs. Check out the tutorials and examples, along with more documentation, [here](https://github.com)
 ## Installation
 
 ### Julia
@@ -8,12 +8,12 @@ This package is not registered (yet).
 You can install it via the Julia REPL like this:
 ```julia
 julia> using Pkg
-julia> Pkg.add(PackageSpec(url="https://github.com/akel123/CoexistHypergraph.jl.git", rev="master"))
+julia> Pkg.add(PackageSpec(url="https://github.com/akel123/CoexistenceHoles.jl.git", rev="master"))
 ```
 
 Or you can install it via the Pkg REPL like this:
 ```julia
-(v1.3) pkg> add https://github.com/akel123/CoexistHypergraph.jl.git#master
+(v1.3) pkg> add https://github.com/akel123/CoexistenceHoles.jl.git#master
 ```
  ### R
 If you already have [`R`](https://www.r-project.org/) installed then you'll need
@@ -23,10 +23,10 @@ is not found, you will need to add it to your path following the proper
 [instructions](https://julialang.org/downloads/platform/) for your operating system.
 
 In `R` use [`JuliaCall`](https://github.com/Non-Contradiction/JuliaCall) is used to interface between languages. For function summaries see [this](https://cran.r-project.org/web/packages/JuliaCall/JuliaCall.pdf) document.
-However studying these functions is not necessary since `CoexistHypergraph`'s
+However studying these functions is not necessary since `CoexistenceHoles`'s
 shows the proper functions to use from `JuliaCall` in the tutorial and examples.
 
-The follwoing are steps to install `CoexistHypergraph` in `R`. See the examples
+The follwoing are steps to install `CoexistenceHoles` in `R`. See the examples
 or tutorials for more specific instructions.
 ```R
 install.packages("JuliaCall")
@@ -35,10 +35,10 @@ library(JuliaCall)
 julia <- julia_setup()
 
 # only need to run this once
-julia_install_package("https://github.com/akel123/CoexistHypergraph.jl.git#master")
+julia_install_package("https://github.com/mtangulo/CoexistenceHoles.jl.git#master")
 
-# add the library every time you open a new session of R and want to use CoexistHypergraph
-julia_library("CoexistHypergraph")
+# add the library every time you open a new session of R and want to use CoexistenceHoles
+julia_library("CoexistenceHoles")
 ```
 
 ## Example code for both `Julia` and `R`
@@ -51,7 +51,7 @@ julia_library("CoexistHypergraph")
 <td>
 
 ```julia
-using CoexistHypergraph
+using CoexistenceHoles
 
 
 
@@ -87,9 +87,9 @@ betti_H = betti_hypergraph_ripscomplex(H; max_dim = max_dim)
 <td>
 
 ```R
-julia_library("CoexistHypergraph")
+julia_library("CoexistenceHoles")
 
-opt <- julia_pkg_import("CoexistHypergraph", func_list = c("random_communitymatrix",
+opt <- julia_pkg_import("CoexistenceHoles", func_list = c("random_communitymatrix",
                                                            "random_growthvector",
                                                            "assembly_hypergraph_GLV",
                                                            "dissassembly_hypergraph",
@@ -126,7 +126,7 @@ betti_H = betti_hypergraph_ripscomplex(H; max_dim = max_dim)
 
 
 ## Citing
-If you use CoexistHypergraph for academic research, please cite the following paper.
+If you use CoexistenceHoles for academic research, please cite the following paper.
 
 Paper Citation
 

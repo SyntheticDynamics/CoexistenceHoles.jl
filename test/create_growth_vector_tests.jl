@@ -1,4 +1,4 @@
-using CoexistHypergraph
+using CoexistenceHoles
 using Test
 import LinearAlgebra: norm
 

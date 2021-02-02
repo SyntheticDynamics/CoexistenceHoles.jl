@@ -5,5 +5,5 @@ Pages=["glossary.md"]
 ```
 
 ```@autodocs
-Modules = [CoexistHypergraph]
+Modules = [CoexistenceHoles]
 ```

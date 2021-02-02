@@ -1,4 +1,4 @@
-using CoexistHypergraph
+using CoexistenceHoles
 using Test
 
 @testset "is_GLVlocallystable.jl" begin

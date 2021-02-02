@@ -1,5 +1,5 @@
 
-module CoexistHypergraph
+module CoexistenceHoles
 
 import LinearAlgebra: diagind, rank, pinv, eigvals, diagm, norm, diag
 import StatsBase: sample
