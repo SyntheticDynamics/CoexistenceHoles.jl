@@ -15,7 +15,7 @@ makedocs(
             "R_use.md"
             ]
     ],
-    doctest=fasle,
+    doctest=false,
 )
 
 deploydocs(
