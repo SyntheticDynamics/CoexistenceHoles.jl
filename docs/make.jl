@@ -16,3 +16,7 @@ makedocs(
             ]
     ]
 )
+
+deploydocs(
+    repo = "github.com/akel123/CoexistHypergraph.jl.git"
+)

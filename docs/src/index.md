@@ -18,18 +18,13 @@ Or you can install it via the Pkg REPL like this:
 (v1.3) pkg> add https://github.com/akel123/CoexistHypergraph.jl.git#master
 ```
 #### R
-If you already have [`R`](https://www.r-project.org/) installed then you'll need
-to download install [`julia`](https://julialang.org/). You can check if julia is
-installed correctly by running the `julia` command in a terminal. If this command
-is not found, you will need to add it to your path following the proper
-[instructions](https://julialang.org/downloads/platform/) for your operating system.
+This package can also be used with [`R`](https://www.r-project.org/). With `R` installed, you'll still need to download install [`julia`](https://julialang.org/), although you won't be using it directly. You can check if julia is installed correctly by running the `julia` command in a terminal. If this command
+is not found, you will need to add it to your path following the proper [instructions](https://julialang.org/downloads/platform/) for your operating system.
 
-In `R` use [`JuliaCall`](https://github.com/Non-Contradiction/JuliaCall) is used to interface between languages. For function summaries see [this](https://cran.r-project.org/web/packages/JuliaCall/JuliaCall.pdf) document.
-However studying these functions is not necessary since `CoexistHypergraph`'s
-shows the proper functions to use from `JuliaCall` in the tutorial and examples.
+In `R` we use [`JuliaCall`](https://github.com/Non-Contradiction/JuliaCall) as an interface to access the `julia` code. There are many ways to access the package with `R`. [Here](./R_use.md) are someuseful ones, or just keep reading to get started right away. For more in-depth function summaries take a look at the official [documentation](https://cran.r-project.org/web/packages/JuliaCall/JuliaCall.pdf).
 
-The follwoing are steps to install `CoexistHypergraph` in `R`. See the examples
-or tutorials for more specific instructions.
+The follwoing are steps to install `CoexistenceHoles` in `R`. See the [examples](./examples.md)
+or [tutorials](./tutorial.md) for more specific instructions.
 ```R
 install.packages("JuliaCall")
 
