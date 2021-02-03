@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/SyntheticDynamics/CoexistenceHoles.jl.svg?branch=master)](https://travis-ci.com/SyntheticDynamics/CoexistenceHoles.jl)
+
 # CoexistenceHoles
 See full documentation [here](https://syntheticdynamics.github.io/CoexistenceHoles.jl/dev/), including tutorials and examples.
 
