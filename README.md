@@ -1,5 +1,5 @@
 # CoexistenceHoles
-See full documentation [here](https://mtangulo.github.io/CoexistenceHoles.jl/dev/), including tutorials and examples.
+See full documentation [here](https://syntheticdynamics.github.io/CoexistenceHoles.jl/dev/), including tutorials and examples.
 
 CoexistenceHoles is a `Julia` and `R` package that originally was made for the project "Coexistence holes characterize the assembly and disassembly of multispecies sytems". However, this project has the potential for a variety of applications. In short, it provides efficient tools for analyzing the homology of general hypergraphs.  
 ## Installation
