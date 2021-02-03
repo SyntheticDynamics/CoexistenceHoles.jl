@@ -78,17 +78,23 @@ Based on computing the hypergraph subdivision without expansion, which returns t
 """
 function betti_hypergraph_ripscomplex(H; max_dim = 3)
 
+    max_dim = min(max_dim, length(H) - 2);
     if length(H) == 0
         return zeros(max_dim + 1)
+    end
+    if max_dim > length(H) - 2
+        max_dim = length(H) - 2;
     else
-
         G = hypergraph_subdivide(H; expansion = false)
         # build distance matrix to give as input to Ripser.
         M = 2.0*ones(length(H), length(H))
         [ M[g[1], g[2]] = 1 for g in G ]
+        [ M[g[2], g[1]] = 1 for g in G ]
+        M[diagind(M)] .= 0;
 
         #call Ripser
-        barcodes = ripser(M; dim_max = max_dim, threshold = 1.5)
+        flt = Rips(M; threshold=1.5)
+        barcodes = ripserer(flt; dim_max = max_dim)
         # interpret the outout. Barcodes is an array of tuples of dim = max_dim + 1.
         # All tuples where the second entry is Inf are the persistent ones.
         # Betti numbers just count the number of those persistent ones.
@@ -96,6 +102,26 @@ function betti_hypergraph_ripscomplex(H; max_dim = 3)
 
         return betti
     end
+
+    ## old function using Ripser library: https://github.com/mtsch/Ripser.jl#master
+    # if length(H) == 0
+    #     return zeros(max_dim + 1)
+    # else
+    #
+    #     G = hypergraph_subdivide(H; expansion = false)
+    #     # build distance matrix to give as input to Ripser.
+    #     M = 2.0*ones(length(H), length(H))
+    #     [ M[g[1], g[2]] = 1 for g in G ]
+    #
+    #     #call Ripser
+    #     barcodes = ripser(M; dim_max = max_dim, threshold = 1.5)
+    #     # interpret the outout. Barcodes is an array of tuples of dim = max_dim + 1.
+    #     # All tuples where the second entry is Inf are the persistent ones.
+    #     # Betti numbers just count the number of those persistent ones.
+    #     betti = [ count(x -> x[2] .== Inf, barcodes[i]) for i in 1:length(barcodes)]
+    #
+    #     return betti
+    # end
 end
 
 """

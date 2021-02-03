@@ -9,7 +9,7 @@ import ProgressMeter: @showprogress
 import Convex: Variable, minimize, solve!
 import SCS: Optimizer
 import IterTools: reverse
-import Ripser: ripser
+import Ripserer: Rips, ripserer
 import Combinatorics: combinations
 import Random: seed!, shuffle
 

@@ -11,7 +11,7 @@ IterTools = "c8e1da08-722c-5040-9ed9-7db0dc04731e"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 ProgressMeter = "92933f4c-e287-5a05-a399-4b506db050ca"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
-Ripser = "a065acc3-80ed-5c45-b435-18a3916a1fde"
+Ripserer = "aa79e827-bd0b-42a8-9f10-2b302677a641"
 SCS = "c946c3f1-0d1f-5ce8-9dea-7daa1f7e2d13"
 StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 
