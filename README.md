@@ -9,12 +9,12 @@ This package is not registered (yet).
 You can install it via the Julia REPL like this:
 ```julia
 julia> using Pkg
-julia> Pkg.add(PackageSpec(url="https://github.com/mtangulo/CoexistenceHoles.jl.git", rev="master"))
+julia> Pkg.add(PackageSpec(url="https://github.com/SyntheticDynamics/CoexistenceHoles.jl.git", rev="master"))
 ```
 
 Or you can install it via the Pkg REPL like this:
 ```julia
-(v1.3) pkg> add https://github.com/mtangulo/CoexistenceHoles.jl.git#master
+(v1.3) pkg> add https://github.com/SyntheticDynamics/CoexistenceHoles.jl.git#master
 ```
  ### R
 If you already have [`R`](https://www.r-project.org/) installed then you'll need
