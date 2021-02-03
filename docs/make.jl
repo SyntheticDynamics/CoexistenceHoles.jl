@@ -19,5 +19,5 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/mtangulo/CoexistenceHoles.jl.git"
+    repo = "github.com/SyntheticDynamics/CoexistenceHoles.jl.git"
 )
