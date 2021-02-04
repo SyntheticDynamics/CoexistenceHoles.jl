@@ -1,7 +1,7 @@
 # CoexistenceHoles
 See full documentation [here](https://syntheticdynamics.github.io/CoexistenceHoles.jl/dev/), including tutorials and examples.
 
-CoexistenceHoles is a `Julia` and `R` package that originally was made for the project "Coexistence holes characterize the assembly and disassembly of multispecies sytems". However, this project has the potential for a variety of applications. In short, it provides efficient tools for analyzing the homology of general hypergraphs.
+CoexistenceHoles is a [`julia`](https://julialang.org/) and [`R`](https://www.r-project.org/) package that originally was made for the project "Coexistence holes characterize the assembly and disassembly of multispecies sytems". However, this project has the potential for a variety of applications. In short, it provides efficient tools for analyzing the homology of general hypergraphs.
 ## Installation
 
 ### Julia
@@ -9,12 +9,12 @@ This package is not registered (yet).
 You can install it via the Julia REPL like this:
 ```julia
 julia> using Pkg
-julia> Pkg.add(PackageSpec(url="https://github.com/mtangulo/CoexistenceHoles.jl.git", rev="master"))
+julia> Pkg.add(PackageSpec(url="https://github.com/SyntheticDynamics/CoexistenceHoles.jl.git", rev="master"))
 ```
 
 Or you can install it via the Pkg REPL like this:
 ```julia
-(v1.3) pkg> add https://github.com/mtangulo/CoexistenceHoles.jl.git#master
+(v1.3) pkg> add https://github.com/SyntheticDynamics/CoexistenceHoles.jl.git#master
 ```
  ### R
 If you already have [`R`](https://www.r-project.org/) installed then you'll need

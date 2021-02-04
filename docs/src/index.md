@@ -1,7 +1,7 @@
 # CoexistenceHoles.jl Documentation
 
 ## Quick Overview
-CoexistenceHoles is a `Julia` and `R` package that originally was made for non-additive coexistence in multispecies systems, but has the potential for a variety of applications. In short, it provides tools for making and analyzing they homology of hypergraphs.  
+CoexistenceHoles is a [`julia`](https://julialang.org/) and [`R`](https://www.r-project.org/) package that originally was made for the project "Coexistence holes characterize the assembly and disassembly of multispecies sytems". However, the package has the potential for a variety of applications. In short, it provides efficient tools for analyzing the homology of general hypergraphs.
 
 ## Installation
 
