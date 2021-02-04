@@ -1,0 +1,12 @@
+Int.predators
+L.predators
+L.zoob.feed.
+S.dem.zoob.feed
+Pelagics
+S.dem.zoop.feed
+L. crustaceans
+Sm. moll/worms
+Het. benthos
+Sm. crustaceans
+Zooplankton
+Phytoplankton
