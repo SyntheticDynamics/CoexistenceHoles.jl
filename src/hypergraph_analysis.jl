@@ -86,7 +86,7 @@ function betti_hypergraph_ripscomplex(H; max_dim = 3)
         max_dim = length(H) - 2;
     else
         G = hypergraph_subdivide(H; expansion = false)
-        # build distance matrix to give as input to Ripser.
+        # build distance matrix to give as input to Ripserer.
         M = 2.0*ones(length(H), length(H))
         [ M[g[1], g[2]] = 1 for g in G ]
         [ M[g[2], g[1]] = 1 for g in G ]

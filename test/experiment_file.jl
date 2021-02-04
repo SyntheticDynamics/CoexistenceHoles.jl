@@ -32,3 +32,30 @@ for i = 1:20
         betti = [betti, [betti]]
     end
 end
+
+H = read_hypergraph(joinpath(@__DIR__, "data/Empirical/Jonathan/H.dat"))
+betti_hypergraph_ripscomplex_old(H)
+CoexistHypergraph.betti_hypergraph_ripscomplex(H)
+
+
+function betti_hypergraph_ripscomplex_old(H; max_dim = 3)
+    # old function using Ripser library: https://github.com/mtsch/Ripser.jl#master
+    if length(H) == 0
+        return zeros(max_dim + 1)
+    else
+
+        G = hypergraph_subdivide(H; expansion = false)
+        # build distance matrix to give as input to Ripser.
+        M = 2.0*ones(length(H), length(H))
+        [ M[g[1], g[2]] = 1 for g in G ]
+
+        #call Ripser
+        barcodes = ripser(M; dim_max = max_dim, threshold = 1.5)
+        # interpret the outout. Barcodes is an array of tuples of dim = max_dim + 1.
+        # All tuples where the second entry is Inf are the persistent ones.
+        # Betti numbers just count the number of those persistent ones.
+        betti = [ count(x -> x[2] .== Inf, barcodes[i]) for i in 1:length(barcodes)]
+
+        return betti
+    end
+end
