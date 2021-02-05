@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.com/SyntheticDynamics/CoexistenceHoles.jl.svg?branch=master)](https://travis-ci.com/SyntheticDynamics/CoexistenceHoles.jl)
 
+
+
 # CoexistenceHoles
 See full documentation [here](https://syntheticdynamics.github.io/CoexistenceHoles.jl/dev/), including tutorials and examples.
 
@@ -38,7 +40,7 @@ library(JuliaCall)
 julia <- julia_setup()
 
 # only need to run this once
-julia_install_package("https://github.com/mtangulo/CoexistenceHoles.jl.git#master")
+julia_install_package("https://github.com/SyntheticDynamics/CoexistenceHoles.jl.git#master")
 
 # add the library every time you open a new session of R and want to use CoexistenceHoles
 julia_library("CoexistenceHoles")
