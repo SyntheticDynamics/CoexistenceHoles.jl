@@ -28,6 +28,6 @@ export  random_communitymatrix,
         betti_hypergraph_ripscomplex,
         read_hypergraph,
         hypergraph_subdivide,
-        minimal_simplicial_complex
-
+        minimal_simplicial_complex,
+        save_hypergraph_dat
 end
