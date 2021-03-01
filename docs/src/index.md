@@ -61,7 +61,7 @@ r = random_growthvector(N, μ, σr)
 
 reg = 0
 max_dim  = 4
-H = assembly_hypergraph_GLV(A, r; method = "permanence", regularization = reg)
+H = assembly_hypergraph_GLV(A, r; method = "localstability", regularization = reg)
 R = disassembly_hypergraph(H)
 
 # maybe save these for later if you want
@@ -96,7 +96,7 @@ r = opt$random_growthvector(N, mr, sr)
 
 # create assembly and disassembly hypergraph
 reg = 0
-H = opt$assembly_hypergraph_GLV(A,R; method="permanence", regularization=reg)
+H = opt$assembly_hypergraph_GLV(A,R; method="localstability", regularization=reg)
 M = opt$disassembly_hypergraph(H)
 
 # save these for later if you want
