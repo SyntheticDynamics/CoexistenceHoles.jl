@@ -195,7 +195,15 @@ See also: [`assembly_hypergraph_GLV`](@ref)
 """
 function save_hypergraph_dat(file::String, H::Array{Array{Int64,1},1})::Nothing
     out = [filter(x -> !isspace(x), chop(repr(h), head = 1, tail =1))*"\n" for h in H] |> join
-    write(file, out)
+    path = dirname(file);
+    if startswith(path, '~')
+        path = replace(path, '~' => homedir())
+        file = replace(file, '~' => homedir())
+    end
+    mkpath(path)
+    io = open(file, "w")
+    write(io, out)
+    close(io)
 end
 
 """
