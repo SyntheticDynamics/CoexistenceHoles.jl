@@ -20,7 +20,7 @@ StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 
 [compat]
 Combinatorics = "1.0"
-Convex = "0.13"
+Convex = "0.13, 0.14"
 Distributions = "0.23"
 FileIO = "1.4"
 IterTools = "1.3"
