@@ -77,31 +77,29 @@ Computes Betti numbers of hypergraph.
 Based on computing the hypergraph subdivision without expansion, which returns the inclusion graph
 """
 function betti_hypergraph_ripscomplex(H; max_dim = 3)
-
-    max_dim = min(max_dim, length(H) - 2);
     if length(H) == 0
-        return zeros(max_dim + 1)
+        return Int.(zeros(max_dim + 1))
+    elseif length(H) == 1
+        return Int.(vcat(1, zeros(max_dim)))
     end
-    if max_dim > length(H) - 2
-        max_dim = length(H) - 2;
-    else
-        G = hypergraph_subdivide(H; expansion = false)
-        # build distance matrix to give as input to Ripserer.
-        M = 2.0*ones(length(H), length(H))
-        [ M[g[1], g[2]] = 1 for g in G ]
-        [ M[g[2], g[1]] = 1 for g in G ]
-        M[diagind(M)] .= 0;
+    max_dim = min(max_dim, length(H) - 2);
 
-        #call Ripser
-        flt = Rips(M; threshold=1.5)
-        barcodes = ripserer(flt; dim_max = max_dim)
-        # interpret the outout. Barcodes is an array of tuples of dim = max_dim + 1.
-        # All tuples where the second entry is Inf are the persistent ones.
-        # Betti numbers just count the number of those persistent ones.
-        betti = [ count(x -> x[2] .== Inf, barcodes[i]) for i in 1:length(barcodes)]
+    G = hypergraph_subdivide(H; expansion = false)
+    # build distance matrix to give as input to Ripserer.
+    M = 2.0*ones(length(H), length(H))
+    [ M[g[1], g[2]] = 1 for g in G ]
+    [ M[g[2], g[1]] = 1 for g in G ]
+    M[diagind(M)] .= 0;
 
-        return betti
-    end
+    #call Ripser
+    flt = Rips(M; threshold=1.5)
+    barcodes = ripserer(flt; dim_max = max_dim)
+    # interpret the outout. Barcodes is an array of tuples of dim = max_dim + 1.
+    # All tuples where the second entry is Inf are the persistent ones.
+    # Betti numbers just count the number of those persistent ones.
+    betti = [ count(x -> x[2] .== Inf, barcodes[i]) for i in 1:length(barcodes)]
+
+    return betti
 
     ## old function using Ripser library: https://github.com/mtsch/Ripser.jl#master
     # if length(H) == 0
