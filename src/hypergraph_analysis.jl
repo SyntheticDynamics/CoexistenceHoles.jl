@@ -77,12 +77,14 @@ Computes Betti numbers of hypergraph.
 Based on computing the hypergraph subdivision without expansion, which returns the inclusion graph
 """
 function betti_hypergraph_ripscomplex(H; max_dim = 3)
+
     if length(H) == 0
         return Int.(zeros(max_dim + 1))
     elseif length(H) == 1
         return Int.(vcat(1, zeros(max_dim)))
     end
-    max_dim = min(max_dim, length(H) - 2);
+
+    _max_dim = min(max_dim, length(H) - 2);
 
     G = hypergraph_subdivide(H; expansion = false)
     # build distance matrix to give as input to Ripserer.
@@ -93,13 +95,15 @@ function betti_hypergraph_ripscomplex(H; max_dim = 3)
 
     #call Ripser
     flt = Rips(M; threshold=1.5)
-    barcodes = ripserer(flt; dim_max = max_dim)
+    barcodes = ripserer(flt; dim_max = _max_dim)
     # interpret the outout. Barcodes is an array of tuples of dim = max_dim + 1.
     # All tuples where the second entry is Inf are the persistent ones.
     # Betti numbers just count the number of those persistent ones.
     betti = [ count(x -> x[2] .== Inf, barcodes[i]) for i in 1:length(barcodes)]
 
-    return betti
+    padding = (max_dim+1) - length(betti);
+    return vcat(betti, Int.(zeros(padding)))
+
 
     ## old function using Ripser library: https://github.com/mtsch/Ripser.jl#master
     # if length(H) == 0
