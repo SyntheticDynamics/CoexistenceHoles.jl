@@ -104,7 +104,7 @@ save_hypergraph_dat("~/hypergraphs/assembly_hypergraph.dat", H)
 save_hypergraph_dat("~/hypergraphs/disassembly_hypergraph.dat", R)
 
 # get the betti numbers
-betti_H = betti_hypergraph_ripscomplex(H; max_dim = max_dim)
+betti_H = betti_hypergraph_ripscomplex(H; max_dim = 4)
 ```
 
 ## Citing
