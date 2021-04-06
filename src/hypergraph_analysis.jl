@@ -35,11 +35,11 @@ function hypergraph_subdivide(H; expansion = false)
     # Build graph of inclusion between hyperedges.
     # convention is [i,j] for (i -> j)
     G = []
-    @inbounds for size = reverse(2:hypergraph_dimension(H))
+    for size = reverse(2:hypergraph_dimension(H))
             nodes_s = findall(h -> length(h) == size , H) # v ∈ V such that length(H[v]) == size
             nodes_sm1 = findall(h -> length(h) < size, H) # v ∈ V such that length(H[v]) < size
 
-            @inbounds for p in nodes_s, c in nodes_sm1
+            for p in nodes_s, c in nodes_sm1
                     if H[c] ⊆ H[p]
                             push!(G, [p,c])
                     end
@@ -94,7 +94,7 @@ function betti_hypergraph_ripscomplex(H; max_dim = 3)
     M[diagind(M)] .= 0;
 
     #call Ripser
-    flt = Rips(M; threshold=1.5)
+    flt = Rips(M; threshold=1.5, sparse=true)
     barcodes = ripserer(flt; dim_max = _max_dim)
     # interpret the outout. Barcodes is an array of tuples of dim = max_dim + 1.
     # All tuples where the second entry is Inf are the persistent ones.
