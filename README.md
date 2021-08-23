@@ -132,10 +132,10 @@ betti_H = betti_hypergraph_ripscomplex(H; max_dim = max_dim)
 
 
 ## Citing
-If you use CoexistenceHoles for academic research, please cite the following paper.
+If you use CoexistenceHoles for academic research, please cite the following paper:
 
-Paper Citation
+Angulo, M.T., Kelley, A., Montejano, L. et al. Coexistence holes characterize the assembly and disassembly of multispecies systems. Nat Ecol Evol 5, 1091–1101 (2021). https://doi.org/10.1038/s41559-021-01462-8
 
 ## Developers
--  Marco Tulio
+- Marco Tulio
 - Aaron Kelley
